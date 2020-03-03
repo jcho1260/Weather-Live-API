@@ -30,7 +30,7 @@ class myCustomTableViewCell: UITableViewCell {
 
 class myCustomTableViewController: UITableViewController {
     var allInfo: [Weather] = []
-    var coord = ["42.8864,78.8784", "35.2271,80.8431", "35.9940,78.8986", "36.1699,115.1398", "38.2527,85.7585", "39.9526,75.1652", "35.7796,78.6382"]
+    var coord = ["42.8864,-78.8784", "35.2271,-80.8431", "35.9940,-78.8986", "36.1699,-115.1398", "38.2527,-85.7585", "39.9526,-75.1652", "35.7796,-78.6382"]
     var city = ["Buffalo", "Charlotte", "Durham", "Las Vegas", "Louisville", "Philadelphia", "Raleigh"]
     var cityImages = [UIImage(named: "Buffalo"), UIImage(named: "Charlotte"), UIImage(named: "Durham"), UIImage(named: "Las Vegas"), UIImage(named: "Louisville"), UIImage(named: "Philadelphia"), UIImage(named: "Raleigh")]
     var icons: [String] = []
@@ -168,8 +168,8 @@ class myCustomTableViewController: UITableViewController {
         // Configure the cell...
         cell.weatherLab.text = city[indexPath.row]
         let index = city.firstIndex(of: cell.weatherLab.text!)
-        cell.weatherImg.image = UIImage(named: icons[index!])
-        cell.weatherTemp.text = String(allInfo[indexPath.row].currently.temperature)
+        //cell.weatherImg.image = UIImage(named: icons[index!])
+        //cell.weatherTemp.text = String(Int(allInfo[indexPath.row].currently.temperature))
         return cell
     }
     
@@ -189,7 +189,7 @@ class myCustomTableViewController: UITableViewController {
         let index = city.firstIndex(of: myCurrCell.weatherLab.text!)
         destVC.cityImage = cityImages[index!]
         destVC.sumText = allInfo[index!].currently.summary
-        destVC.tempText = String(allInfo[index!].currently.temperature)
+        destVC.tempText = "\(String(Int(allInfo[index!].currently.temperature))) °F"
         destVC.precipText = "Precipitation Probability: \(String(allInfo[index!].currently.precipProbability))"
     }
     
