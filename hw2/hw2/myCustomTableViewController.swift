@@ -55,7 +55,7 @@ class myCustomTableViewController: UITableViewController {
     override func viewDidLoad() {
         getAllData()
         super.viewDidLoad()
-
+        assignBackground()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -65,6 +65,12 @@ class myCustomTableViewController: UITableViewController {
         
         
 
+    }
+    
+    func assignBackground(){
+        let backgroundImage = UIImageView(image: UIImage(named: "bgrd"))
+        backgroundImage.contentMode = .scaleAspectFill
+        tableView.backgroundView = backgroundImage
     }
     
     func getAllData() {
@@ -105,6 +111,8 @@ class myCustomTableViewController: UITableViewController {
                     
                     print(weat.currently.temperature)
                     self.allInfo.append(weat)
+                    print("lalalal")
+                    print(self.allInfo)
                     self.icons.append(weat.currently.icon)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -161,7 +169,11 @@ class myCustomTableViewController: UITableViewController {
            return("Weather")
            
        }
-
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // #warning Incomplete implementation, return the number of rows
+        cell.backgroundColor = UIColor.clear
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -176,8 +188,13 @@ class myCustomTableViewController: UITableViewController {
         cell.weatherLab.text = city[indexPath.row]
         //let index = city.firstIndex(of: cell.weatherLab.text!)
         //print(allInfo)
-        cell.weatherImg.image = UIImage(named: allInfo[indexPath.row].currently.icon)
-        cell.weatherTemp.text = String(Int(allInfo[indexPath.row].currently.temperature))
+        if allInfo.count < 7{
+            
+        }else{
+            cell.weatherImg.image = UIImage(named: allInfo[indexPath.row].currently.icon)
+            cell.weatherTemp.text = String(Int(allInfo[indexPath.row].currently.temperature))
+        }
+        
         return cell
     }
     
