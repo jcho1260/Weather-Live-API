@@ -79,7 +79,14 @@ class myCustomTableViewController: UITableViewController {
             let session = URLSession.shared
             let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
                 guard error == nil else {
-                    print ("error: \(error!)")
+                    DispatchQueue.main.async {
+                        print ("error: \(error!)")
+                        let alert1 = UIAlertController(title: "Error", message: "There was an error with the HTTP request", preferredStyle: .alert)
+                        alert1.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        
+                        self.present(alert1, animated: true)
+                    }
+                    
                     return
                 }
                 // ensure there is data returned from this HTTP response
@@ -167,9 +174,10 @@ class myCustomTableViewController: UITableViewController {
 
         // Configure the cell...
         cell.weatherLab.text = city[indexPath.row]
-        let index = city.firstIndex(of: cell.weatherLab.text!)
-        //cell.weatherImg.image = UIImage(named: icons[index!])
-        //cell.weatherTemp.text = String(Int(allInfo[indexPath.row].currently.temperature))
+        //let index = city.firstIndex(of: cell.weatherLab.text!)
+        //print(allInfo)
+        cell.weatherImg.image = UIImage(named: allInfo[indexPath.row].currently.icon)
+        cell.weatherTemp.text = String(Int(allInfo[indexPath.row].currently.temperature))
         return cell
     }
     
